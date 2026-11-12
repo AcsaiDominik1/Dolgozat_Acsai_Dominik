@@ -24,6 +24,7 @@
                         return;
                     }
                 }
+                Console.WriteLine("A hűtő tele van!");
             }
         }
 
@@ -132,9 +133,37 @@
             }
         }
 
+        //FELADAT 2
+
+        static int[] szamok = new int[10];
+        static Random r = new Random();
+
+        static void FeltoltEgyediekkel (int min, int max)
+        {
+            for (int i = 0;  i < szamok.Length; i++)
+            {
+                int szam;
+                do
+                {
+                    szam = r.Next(min, max);
+                } while (szamok.Contains(szam));
+                szamok[i] = szam;
+            }
+            //for (int i = 0; i < szamok.Length;i++)
+            //{
+            //    Console.WriteLine(szamok[i]);
+            //}
+        }
+
+        static int LeghosszabbNovekvo()
+        {
+
+        }
+
         static void Main(string[] args)
         {
-            HutoMenu();
+            //HutoMenu();
+            FeltoltEgyediekkel(1, 20);
         }
     }
 }
