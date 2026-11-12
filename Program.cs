@@ -30,9 +30,22 @@
             }
         }
 
+        static int Takarit()
+        {
+            int darabszam = 0;
+            for(int i = 0; i < huto.Length;i++)
+            {
+                if (huto[i] != "")
+                {
+                    darabszam += 1;
+                }
+            }
+            return darabszam;
+        }
+
         static void Main(string[] args)
         {
-            hutoFeltoltese();
+            Console.WriteLine(Takarit() + " db étel van a hűtőben.");
         }
     }
 }
