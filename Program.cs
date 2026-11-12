@@ -20,10 +20,7 @@
                     if (huto[i] == "")
                     {
                         huto[i] = item;
-                        for (int j = 0; j < huto.Length; j++)
-                        {
-                            Console.Write(huto[j] + ", ");
-                        }
+                        HutoMenu();
                         return;
                     }
                 }
@@ -41,6 +38,19 @@
                 }
             }
             return darabszam;
+        }
+
+        static void TakaritKiir()
+        {
+            int takarit = Takarit();
+            if (takarit == 0)
+            {
+                Console.WriteLine("A hűtő üres!");
+            } else
+            {
+                Console.WriteLine(takarit + " db étel van a hűtőben.");
+            }
+            HutoMenu();
         }
 
         static int KeresEtel()
@@ -76,11 +86,55 @@
             {
                 Console.WriteLine(etel + ". helyen található a keresett étel!");
             }
+            HutoMenu();
+        }
+
+        static void MaganhangzovalKezdodik()
+        {
+            string[] maganhangzok = {"a", "á", "e", "é", "i", "í", "u", "ú", "ü", "ű", "o", "ó", "ö", "ő" };
+            for (int i = 0; i < huto.Length; i++)
+            {
+                for (int j = 0; j < maganhangzok.Length; j++)
+                {
+                    if (huto[i].ToLower().StartsWith(maganhangzok[j]))
+                    {
+                        Console.Write(huto[i] + ", ");
+                    }
+                }
+            }
+            HutoMenu();
+        }
+
+        static void kilepes()
+        {
+            Console.WriteLine("Viszlát!");
+        }
+
+        static void HutoMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Üdvözöllek a hűtőszekrény előtt! Miben segíthetek?");
+            Console.WriteLine("1. Hűtő feltöltése");
+            Console.WriteLine("2. Hűtő telítetségének száma");
+            Console.WriteLine("3. Étel keresése");
+            Console.WriteLine("4. Magánhangzóval kezdődő ételek");
+            Console.WriteLine("5. Kilépés");
+            Console.Write("Kérem adja meg a művelet számát: ");
+            int muvelet = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+            switch (muvelet)
+            {
+                case 1: hutoFeltoltese(); break;
+                case 2: TakaritKiir(); break;
+                case 3: KeresEtelKiir(); break;
+                case 4: MaganhangzovalKezdodik(); break;
+                case 5: kilepes(); break;
+            }
         }
 
         static void Main(string[] args)
         {
-            KeresEtelKiir();
+            HutoMenu();
         }
     }
 }
