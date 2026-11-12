@@ -1,4 +1,6 @@
-﻿namespace Dolgozat_Acsai_Dominik
+﻿using System.Security.Cryptography;
+
+namespace Dolgozat_Acsai_Dominik
 {
     internal class Program
     {
@@ -47,7 +49,8 @@
             if (takarit == 0)
             {
                 Console.WriteLine("A hűtő üres!");
-            } else
+            }
+            else
             {
                 Console.WriteLine(takarit + " db étel van a hűtőben.");
             }
@@ -92,7 +95,7 @@
 
         static void MaganhangzovalKezdodik()
         {
-            string[] maganhangzok = {"a", "á", "e", "é", "i", "í", "u", "ú", "ü", "ű", "o", "ó", "ö", "ő" };
+            string[] maganhangzok = { "a", "á", "e", "é", "i", "í", "u", "ú", "ü", "ű", "o", "ó", "ö", "ő" };
             for (int i = 0; i < huto.Length; i++)
             {
                 for (int j = 0; j < maganhangzok.Length; j++)
@@ -138,9 +141,9 @@
         static int[] szamok = new int[10];
         static Random r = new Random();
 
-        static void FeltoltEgyediekkel (int min, int max)
+        static void FeltoltEgyediekkel(int min, int max)
         {
-            for (int i = 0;  i < szamok.Length; i++)
+            for (int i = 0; i < szamok.Length; i++)
             {
                 int szam;
                 do
@@ -149,21 +152,101 @@
                 } while (szamok.Contains(szam));
                 szamok[i] = szam;
             }
-            //for (int i = 0; i < szamok.Length;i++)
-            //{
-            //    Console.WriteLine(szamok[i]);
-            //}
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                Console.WriteLine(szamok[i]);
+            }
         }
 
-        static int LeghosszabbNovekvo()
-        {
 
+        static int[] LeghosszabbNovekvo()
+        {
+            int[] leghosszabb = new int[szamok.Length];
+            int[] segedLeghosszabb = new int[szamok.Length];
+            int index = 0;
+            int segedindex = 0;
+            int elso = szamok[0];
+            int masodik = szamok[1];
+            int masodikindex = 2;
+            for (int i = 0; i < szamok.Length - 2 ; i++)
+            {
+                if (elso < masodik)
+                {
+                    if (segedindex == 0)
+                    {
+                        segedLeghosszabb[segedindex] = elso;
+                        segedLeghosszabb[segedindex + 1] = masodik;
+                        segedindex += 2;
+                    }
+                    else
+                    {
+                        segedLeghosszabb[segedindex] = masodik;
+                        segedindex += 1;
+                    }
+                }
+                else
+                {
+                    if (segedindex > index)
+                    {
+                        for (int j = 0; j < segedLeghosszabb.Length; j++)
+                        {
+                            leghosszabb[j] = segedLeghosszabb[j];                                              
+                        }
+                    }
+                    index = segedindex;
+                    segedindex = 0;
+                }
+                elso = masodik;
+                masodik = szamok[masodikindex];
+                masodikindex++;
+            }
+            return leghosszabb;
+        }
+
+        static void LeghosszabbNovekvoKiir()
+        {
+            int[] leghosszabbnovekvo = LeghosszabbNovekvo();
+            Console.WriteLine(leghosszabbnovekvo.Length);
+            int[] tomb = new int[leghosszabbnovekvo.Length];
+            int index = 0;
+            int vegsoindex = 0;
+            for (int i = 0; i < leghosszabbnovekvo.Length; i++)
+            {
+                if (leghosszabbnovekvo[i] != 0)
+                {
+                    tomb[index] = leghosszabbnovekvo[i];
+                    index += 1;
+                }
+            }
+
+            int[] vegsotomb = new int[index];
+            for (int i = 0; i < vegsotomb.Length; i++)
+            {
+                vegsotomb[vegsoindex] = tomb[vegsoindex];
+                vegsoindex += 1;
+            }
+            //Console.WriteLine("-----------------");
+            //for (int i = 0; i < leghosszabbnovekvo.Length; i++)
+            //{
+            //    Console.WriteLine(leghosszabbnovekvo[i] + ", ");
+            //}
+            //Console.WriteLine("----------------");
+            //for (int i = 0; i < tomb.Length; i++)
+            //{
+            //    Console.WriteLine(tomb[i] + ", ");
+            //}
+            Console.WriteLine("-----------------");
+            for (int i = 0; i < vegsotomb.Length; i++)
+            {
+                Console.WriteLine(vegsotomb[i] + ", ");
+            }
         }
 
         static void Main(string[] args)
         {
             //HutoMenu();
             FeltoltEgyediekkel(1, 20);
+            LeghosszabbNovekvoKiir();
         }
     }
 }
