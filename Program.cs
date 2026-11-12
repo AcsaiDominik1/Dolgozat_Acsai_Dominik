@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using System.Xml.Serialization;
 
 namespace Dolgozat_Acsai_Dominik
 {
@@ -134,6 +135,7 @@ namespace Dolgozat_Acsai_Dominik
                 case 4: MaganhangzovalKezdodik(); break;
                 case 5: kilepes(); break;
             }
+            Osszmenu();
         }
 
         //FELADAT 2
@@ -156,6 +158,7 @@ namespace Dolgozat_Acsai_Dominik
             {
                 Console.WriteLine(szamok[i]);
             }
+            SzamokMenu();
         }
 
 
@@ -240,13 +243,78 @@ namespace Dolgozat_Acsai_Dominik
             {
                 Console.WriteLine(vegsotomb[i] + ", ");
             }
+            SzamokMenu();
+        }
+
+        static void AtlagAlattiDuplazas()
+        {
+            int atlag = 0;
+            int osszeg = 0;
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                osszeg += szamok[i];
+            }
+            atlag = osszeg / szamok.Length;
+            for (int i = 0; i < szamok.Length;i++)
+            {
+                if (szamok[i] < atlag)
+                {
+                    Console.WriteLine(i + 1 + ". értéke duplázva!");
+                    int seged = szamok[i];
+                    szamok[i] = seged * 2;
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine("Az új lista: ");
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                Console.WriteLine(szamok[i]);
+            }
+            SzamokMenu();
+        }
+
+        static void SzamokMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Üdvözöllek a számok világában! Miben segíthetek?");
+            Console.WriteLine("1. Számok feltöltése");
+            Console.WriteLine("2. Leghosszabb szigorúan növekvők kiírása");
+            Console.WriteLine("3. Átlag alatti duplázás");
+            Console.WriteLine("4. Kilépés");
+            Console.Write("Kérem adja meg a művelet számát: ");
+            int muvelet = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+            switch (muvelet)
+            {
+                case 1: FeltoltEgyediekkel(10, 20); break;
+                case 2: LeghosszabbNovekvoKiir(); break;
+                case 3: AtlagAlattiDuplazas(); break;
+                case 4: kilepes(); break;
+            }
+            Osszmenu();
+        }
+
+        static void Osszmenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Üdvözöllek a menüben! Miben segíthetek?");
+            Console.WriteLine("1. Számok világa");
+            Console.WriteLine("2. Hűtőszekrény kezelő");
+            Console.WriteLine("3. Kilépés");
+            Console.Write("Kérem adja meg a művelet számát: ");
+            int muvelet = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
+            switch (muvelet)
+            {
+                case 1: SzamokMenu(); break;
+                case 2: HutoMenu(); break;
+                case 3: kilepes(); break;
+            }
         }
 
         static void Main(string[] args)
         {
-            //HutoMenu();
-            FeltoltEgyediekkel(1, 20);
-            LeghosszabbNovekvoKiir();
+            Osszmenu();
         }
     }
 }
