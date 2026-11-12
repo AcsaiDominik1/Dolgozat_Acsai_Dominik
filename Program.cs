@@ -33,7 +33,7 @@
         static int Takarit()
         {
             int darabszam = 0;
-            for(int i = 0; i < huto.Length;i++)
+            for (int i = 0; i < huto.Length; i++)
             {
                 if (huto[i] != "")
                 {
@@ -43,9 +43,44 @@
             return darabszam;
         }
 
+        static int KeresEtel()
+        {
+            Console.Write("Kérem adja meg milyen ételt keres: ");
+            string etel = Console.ReadLine();
+
+            if (etel == null)
+            {
+                Console.WriteLine("A keresett étel nem lehet semmi!");
+                return -1;
+            }
+
+            for (int i = 0; i < huto.Length; i++)
+            {
+                if (huto[i].ToLower() == etel.ToLower())
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        static void KeresEtelKiir()
+        {
+            int etel = KeresEtel();
+
+            if (etel == -1)
+            {
+                Console.WriteLine("A hűtőben nem található ilyen étel!");
+            }
+            else
+            {
+                Console.WriteLine(etel + ". helyen található a keresett étel!");
+            }
+        }
+
         static void Main(string[] args)
         {
-            Console.WriteLine(Takarit() + " db étel van a hűtőben.");
+            KeresEtelKiir();
         }
     }
 }
